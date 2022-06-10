@@ -19,18 +19,22 @@ import java.util.ArrayList;
 public class Biblioteca {
 	private ArrayList<Livro> livros; 
 	
+	// Construtor da classe Biblioteca que inicia a lista de objetos da classe Livro.
 	public Biblioteca() {
 		this.livros = new ArrayList<Livro>();
 }
+	// Método para adicioná-los na lista 'livros'.
 	public void adicionarLivro(Livro livro) {
 		this.livros.add(livro);
 	}
+	// Método que mostra no console o método info (com as descrições) e a quantidade de livros que constam na lista.
 	public void listarLivros() {
 		for (Livro livro:livros) {
 			System.out.println(livro.infos());
 		}
 		System.out.println("Total de " + this.livros.size() + " livros listados com sucesso!\n");
 	}
+	// Método que verifica se o livro existe na lista e o remove através do parâmetro. Se o livro não constar na lista, mostra mensagem de erro.
 	public void excluirLivro(Livro livro) {
 		if (this.livros.contains(livro)) {
 			this.livros.remove(livro);
@@ -38,10 +42,19 @@ public class Biblioteca {
 			System.out.println("Este livro não existe.\n");
 		}
 	}
+	// Método que armazena a quantidade de livros da lista para mostrar no console quantos foram apagados e apaga todas os itens da lista livros.
 	public void excluirLivros() {
-		System.out.println(livros.size() + " livros excluídos com sucesso.");
+		int qtdLivros = livros.size();
 		livros.clear();
+		System.out.println(qtdLivros + " livros excluídos com sucesso.");
 	}
+	/* Método para gravar livros no arquivo do diretório especificado.
+	 * Se não encontrar o arquivo, mostra mensagem de erro (se necessário).
+	 * Busca falhas de input/output, mostra mensagem de erro (se necessário).
+	 * Testa se o output é diferente de nulo e, se for, libera o fluxo de saída para ser gravado.
+	 * Fecha o fluxo de saída e libera os recursos do sistema associados a ele.
+	 * Busca falhas de input/output, mostra mensagem de erro (se necessário).
+	 */
 	public void gravarLivros() {
 		ObjectOutputStream outputStream = null;
 		try {
@@ -65,6 +78,15 @@ public class Biblioteca {
 			}
 		}
 	}
+	/* Lê da stream para o objeto.
+	 * Verifica se o objeto Livro(Terror/Autoajuda/Guia/Biografia/Infantil) pertence a classe Livro(Terror/Autoajuda/Guia/Biografia/Infantil).
+	 * Insere-o na lista.
+	 * Mostra na tela quando chega ao fim do arquivo ou quando não encontra a classe ou arquivo.
+	 * Busca falhas de input/output, mostra mensagem de erro se necessário.
+	 * Testa se o objeto está apontando para algum stream.
+	 * Fecha o stream e libera recursos.
+ 	 * Busca falhas de input/output, mostra mensagem de erro (se necessário).
+	 */
 	public void recuperarLivros() {
 		ObjectInputStream inputStream = null;
 		try {
@@ -103,8 +125,10 @@ public class Biblioteca {
 	}	
 
 	public static void main(String[] args) {
+		// Cria instância da classe Biblioteca.
 		Biblioteca bib = new Biblioteca();
 		
+		// Criação de instâncias das classes filhas de Livro.
 		Livro l1 = new LivroTerror("O cemitério", "Stephen King", false, 213, 8036582, 16); 
 		Livro l2 = new LivroGuiaGastronomico("Curitiba Romântica", "Gustavo Guanabara", true, 182, 803611, 10);
 		Livro l3 = new LivroAutoajuda("Felicidade: Modos de Usar", "Cortella & Karnal & Pondé", true, 160, 808811, "Autoajuda");
